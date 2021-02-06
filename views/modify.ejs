@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>modify</title>
+	<meta charset="UTF-8">
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+</head>
+<body>
+<a href="/list">list</a>
+<% if(!note){ %>
+	note not found
+<% }else if(note.type=="word_sheet"){ %>
+	<form action="/modify/<%= note.num %>" method="post">
+		name:<input type="text" name="acc" value="<%= note.name %>"><br>
+		content:<textarea name="con" style="width: 100%; white-space: pre-wrap; font-family: 'Times New Roman';" rows="25"><%= note.content %></textarea>
+		<input type="submit" value="submit">
+	</form>
+<% }else{ %>
+	something went wrong<br>
+<% }%>
+<a href="/logout">logout</a>
+</body>
+</html>

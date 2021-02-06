@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>聊天系統</title>
+    <!-- tailwindcss + style.css -->
+    <link rel="stylesheet" href="stylesheet/style.css">
+    <!-- jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- main.js -->
+    <script src="javascripts/main.js"></script>
+    <!-- google fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+TC:400,700&display=swap" rel="stylesheet">
+    <!-- material design icons -->
+    <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.7.95/css/materialdesignicons.min.css">
+</head>
+
+<body>
+    <nav id="navbar" class="sticky top-0 left-0 w-full bg-blur flex justify-center">
+        <div class="container p-5 flex items-center justify-between">
+            <a href="/chat" class="text-blue-500 text-xl">
+                <span class="mdi mdi-forum-outline"></span> 聊天系統
+            </a>
+            <div class="flex items-center">
+                <a href="#" class='text-gray-600 hover:text-gray-700 mr-8'>更多功能</a>
+                <a href="#" class='text-gray-600 hover:text-gray-700'>關於我們</a>
+            </div>
+        </div>
+    </nav>
+
+    <header id="header" class="min-h-screen-nav w-full flex justify-center p-5">
+        <div class="container flex flex-wrap">
+            <div class="w-full md:w-1/2 flex items-center">
+                <div class="inline-block p-3 py-12">
+                    <h1 class="text-5xl font-bold mt-2 text-gray-900 inline">一直使用一直<p
+                            class="text-blue-500 inline font-bold">爽</p>
+                    </h1>
+                    <p class="text-gray-600">米南德曾說過，正義勝似法律。 這段話令我陷入了沈思。
+                        楊朔說過一句發人省思的話，作為一個人，要是不經歷過人世上的悲歡離合，不跟生活打過交手仗，就不可能真正懂得人生的意義。 想必各位已經看出了其中的端倪。 把聊天系統輕鬆帶過，顯然並不適合。</p>
+                    <div class="mt-5">
+                        <a href="/register" class="btn-lg btn-primary">註冊</a>
+                        <a href="/login" class="ml-3 btn-lg btn-secondary">登入</a>
+                    </div>
+                </div>
+            </div>
+            <div class="w-full md:w-1/2 flex items-center p-3">
+                <img src="images/chat.svg" alt="" class="w-full">
+            </div>
+        </div>
+    </header>
+
+    <!-- advanced introduce -->
+    <section id="intro" class="w-full bg-gray-200 flex justify-center p-5">
+        <div class="container">
+            <div class="my-5">
+                <h1 class="text-3xl font-bold text-center">全新功能</h1>
+                <p class="text-gray-600 text-center">等你來體驗</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div class="bg-white rounded-lg shadow-lg p-3 flex flex-col justify-center">
+                    <div class="flex justify-center p-4 items-center">
+                        <img src="images/privacy.svg" alt="privacy" class="h-32 justify-center">
+                    </div>
+                    <div class="text-center">
+                        <h4 class="text-gray-900 font-bold text-xl mt-3">注重隱私</h4>
+                        <p class="text-gray-600">
+                            這種事實對本人來說意義重大，相信對這個世界也是有一定意義的。
+                        </p>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg p-3">
+                    <div class="flex justify-center p-4 items-center">
+                        <img src="images/phone.svg" alt="phone" class="h-32 justify-center">
+                    </div>
+                    <div class="text-center">
+                        <h4 class="text-gray-900 font-bold text-xl mt-3">介面友善</h4>
+                        <p class="text-gray-600">
+                            這種事實對本人來說意義重大，相信對這個世界也是有一定意義的。
+                        </p>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg p-3">
+                    <div class="flex justify-center p-4 items-center">
+                        <img src="images/2020.svg" alt="2020" class="h-32 justify-center">
+                    </div>
+                    <div class="text-center">
+                        <h4 class="text-gray-900 font-bold text-xl mt-3">2020年開發</h4>
+                        <p class="text-gray-600">
+                            這種事實對本人來說意義重大，相信對這個世界也是有一定意義的。
+                        </p>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg p-3">
+                    <div class="flex justify-center p-4 items-center">
+                        <img src="images/tailwind.svg" alt="css" class="h-32 justify-center">
+                    </div>
+                    <div class="text-center">
+                        <h4 class="text-gray-900 font-bold text-xl mt-3">使用tailwind.css</h4>
+                        <p class="text-gray-600">
+                            這種事實對本人來說意義重大，相信對這個世界也是有一定意義的。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- subcribe -->
+    <section id="rate" class="min-h-screen-nav w-full bg-blue-500 p-5 flex justify-center">
+        <div class="container flex flex-wrap items-center">
+            <div class="w-full md:w-1/2 p-4">
+                <img src="images/user.svg" alt="" class="w-full">
+            </div>
+
+            <div class="w-full md:w-1/2 p-2 md:p-16 max-w-xl">
+                <div class="p-5 rounded-lg bg-blue-700">
+                    <h3 class="text-2xl font-bold text-white">訂閱我們!</h3>
+                    <p class="text-blue-300 mt-3">
+                        訂閱我們來獲取更多訊息!<br>
+                        (This feature is still under development.)
+                    </p>
+                    <form action="" method="post" class="flex mt-5">
+                        <input type="text" class="custom-input mr-5" placeholder="Email" required style="width: calc(100% - 1.25rem - 56px)">
+                        <button type="submit" class="btn btn-success"><span class="mdi mdi-send"></span></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- dog -->
+    <section id="dog" class="min-h-screen-nav w-full bg-teal-400 p-5 flex justify-center">
+        <div class="container flex flex-wrap items-center">
+            <div class="w-full md:w-2/3 p-4">
+                <h1 class="text-5xl text-gray-900 font-bold">右邊是一隻可愛的狗狗</h1>
+                <p class="mt-4 text-teal-700">
+                    所謂狗狗，關鍵是狗狗需要如何解讀。<br>總而言之，盧梭相信，生活得最有意義的人，並不就是年歲活得最長的人，而是對生活最有感受的人。<br>這句話幾乎解讀出了問題的根本。 如果仔細思考狗狗，會發現其中蘊含的深遠意義。<br>我們都知道，只要有意義，那麼就必須慎重考慮。
+                </p>
+                <hr class="border-teal-500 my-2">
+                <p class="text-teal-700">
+                    想知道為啥會有狗狗在右邊嗎?
+                </p>
+                <a href="#" class="text-gray-900">了解更多 <span class="mdi mdi-arrow-right"></span></a>
+            </div>
+
+            <div class="w-full md:w-1/3 p-4">
+                <img src="images/dog.svg" alt="" class="w-full">
+            </div>
+        </div>
+    </section>
+
+    <footer class="px-5 py-8 bg-gray-800 flex justify-center">
+        <div class="container flex items-center justify-between md:px-5">
+            <a href="https://github.com/roywatermelon11370/"
+                class="text-gray-500 hover:text-gray-200 mdi mdi-copyright">
+                2020 RoyHuang
+            </a>
+
+            <a id="backToTop" href="#header" class="text-3xl mdi mdi-arrow-up text-white hover:text-gray-200"></a>
+        </div>
+    </footer>
+</body>
+
+
+</html>

@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>聊天系統</title>
+    <!-- tailwindcss + style.css -->
+    <link rel="stylesheet" href="../stylesheet/style.css">
+    <!-- jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- main.js -->
+    <script src="../javascripts/main.js"></script>
+    <!-- alpine.js -->
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v1.9.8/dist/alpine.js" defer></script>
+    <!-- google fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+TC:400,700&display=swap" rel="stylesheet">
+    <!-- material design icons -->
+    <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.7.95/css/materialdesignicons.min.css">
+</head>
+
+<body>
+    <main class="h-screen overflow-y-hidden flex" x-data="{ tab: 'personal' }">
+        <div id="bg-dark" class="fixed top-0 left-0 w-full h-full bg-dark hidden"></div>
+        <aside id="sidebar" class="h-screen sidebar overflow-y-scroll custom-scroll-bar sidebar-hide">
+
+            <div class="sticky bg-white md:bg-gray-200 p-4">
+                <div class="mb-5 block md:hidden">
+                    <button onclick="sidebarToggle()"
+                        class="btn-actionbar mdi mdi-close text-2xl mr-3 inline md:hidden"></button>
+                </div>
+                <header class="flex items-center justify-between w-full">
+                    <h1 class="text-gray-900 text-xl">
+                        設定
+                    </h1>
+                </header>
+            </div>
+
+            <div class="flex items-center p-4">
+                <span class="mdi mdi-account-circle text-5xl text-blue-500 mr-4"></span>
+                <div>
+                    <h4 class="text-gray-900"><%= name %></h4>
+                    <p class="text-gray-600 text-sm">userid</p>
+                </div>
+            </div>
+
+            <a href="#" class="aside-item text-gray-600" :class="{ 'text-blue-500 font-bold' : tab === 'personal'}"
+                @click.prevent="tab='personal'" onclick="sidebarToggle()">
+                <span class="mdi mdi-account text-xl mr-4"></span>
+                <p>個人資料</p>
+            </a>
+
+            <a href="#" class="aside-item text-gray-600" :class="{ 'text-blue-500 font-bold' : tab === 'security'}"
+                @click.prevent="tab='security'" onclick="sidebarToggle()">
+                <span class="mdi mdi-security text-xl mr-4"></span>
+                <p>安全性及隱私</p>
+            </a>
+
+            <a href="#" class="aside-item text-gray-600" :class="{ 'text-blue-500 font-bold' : tab === 'other'}"
+                @click.prevent="tab='other'" onclick="sidebarToggle()">
+                <span class="mdi mdi-settings text-xl mr-4"></span>
+                <p>其他設定</p>
+            </a>
+
+            <a href="#" class="aside-item text-gray-600" :class="{ 'text-blue-500 font-bold' : tab === 'about'}"
+                @click.prevent="tab='about'" onclick="sidebarToggle()">
+                <span class="mdi mdi-information text-xl mr-4"></span>
+                <p>關於</p>
+            </a>
+
+
+
+        </aside>
+
+
+
+        <section class="w-full h-screen overflow-y-scroll custom-scroll-bar md:w-3/4 relative"
+            x-show="tab === 'personal'">
+            <nav id="navbar" class="navbar">
+                <button onclick="sidebarToggle()"
+                    class="btn-actionbar text-2xl mdi mdi-menu inline-block md:hidden mr-3"></button>
+            </nav>
+
+            <div class="header">
+                <h4 class="text-3xl text-gray-900 font-bold">個人資料</h4>
+            </div>
+
+            <form action="/settings" method="post" class="p-5 md:px-8 text-center md:text-left w-full md:w-2/3">
+                <span class="mdi mdi-account-circle text-6xl mb-5 text-blue-500"></span>
+                <div class="block my-6">
+                    <label for="account" class="text-gray-600 mr-5"><span class="mdi mdi-account"></span> 帳號</label>
+                    <input id="account" type="text" class="w-3/4 custom-input" value='<%= account %>' readonly>
+                </div>
+
+                <div class="block my-6">
+                    <label for="name" class="text-left text-gray-600 mr-5"><span class="mdi mdi-face"></span> 姓名</label>
+                    <input id="name" type="text" class="w-3/4 custom-input" name="acc">
+                </div>
+
+                <div class="block my-6">
+                    <label for="email" class="text-gray-600 mr-5"><span class="mdi mdi-email"></span> Email</label>
+                    <input id="email" type="text" class="w-3/4 custom-input" name="email">
+                </div>
+
+                <div class="block my-6">
+                    <label for="phone" class="text-gray-600 mr-5"><span class="mdi mdi-phone"></span> 電話</label>
+                    <input id="phone" type="text" class="w-3/4 custom-input" name="phone">
+                </div>
+
+                <button type="reset" class=" btn btn-secondary ml-4">重設</button>
+                <button type="submit" class="btn btn-primary ml-4">儲存</button>
+            </form>
+
+        </section>
+
+        <section class="w-full h-screen overflow-y-scroll custom-scroll-bar md:w-3/4 relative"
+            x-show="tab === 'security'">
+            <div x-data="{ action:'none' }">
+                <div x-show="action==='none'" class="absolute w-full">
+                    <nav class="navbar">
+                        <button onclick="sidebarToggle()"
+                            class="btn-actionbar text-2xl mdi mdi-menu inline-block md:hidden mr-3"></button>
+                    </nav>
+
+                    <div class="header">
+                        <h4 class="text-3xl font-bold text-gray-900">安全性及隱私</h4>
+                    </div>
+
+                    <div class="p-5 md:p-8 w-full md:w-2/3">
+                        <form action="" method="post">
+                            <h4 class="text-blue-500 p-3">隱私</h4>
+                            <label class="custom-switch list-item">
+                                <div>
+                                    <h4 class="text-gray-900">允許被加好友</h4>
+                                    <p class="text-gray-600 text-sm">允許別人用你的帳號加你好友</p>
+                                </div>
+
+                                <input type="checkbox" name="" id="allowBeingAddedAsFriend">
+                                <span class="custom-switch-track">
+                                    <span class="custom-switch-thumb"></span>
+                                </span>
+                            </label>
+
+                            <label class="custom-switch list-item">
+                                <div>
+                                    <h4 class="text-gray-900">允許被加入群組</h4>
+                                    <p class="text-gray-600 text-sm">允許別人用你的帳號把你加入群組</p>
+                                </div>
+
+                                <input type="checkbox" name="" id="allowBeingAddedInGroup">
+                                <span class="custom-switch-track">
+                                    <span class="custom-switch-thumb"></span>
+                                </span>
+                            </label>
+
+                            <div class="flex justify-end p-4">
+                                <button type="reset" class="btn btn-secondary mr-4">重設</button>
+                                <button type="submit" class="btn btn-primary">儲存設定</button>
+                            </div>
+                        </form>
+
+                        <hr class="my-2">
+
+                        <h4 class="text-blue-500 p-3">登入</h4>
+                        <button @click="action='chpwd'" class="list-item flex">
+                            <div class="text-left">
+                                <h4 class="text-gray-900">修改密碼</h4>
+                                <p class="text-gray-600 text-sm">把密碼改掉~</p>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+
+                <div x-show="action==='chpwd'" class="absolute w-full text-center md:text-left min-h-screen"
+                    @click.away="action='none'" x-transition:enter="transition ease-out duration-300"
+                    x-transition:enter-start="opacity-0 transform scale-75" x-transition:enter-end="opacity-100"
+                    x-transition:leave="transition ease-out duration-300" x-transition:leave-start="opacity-100"
+                    x-transition:leave-end="opacity-0">
+
+
+                    <div class="p-5 border-b border-gray-200 flex items-center">
+                        <button class="btn-actionbar mr-5 mdi mdi-arrow-left" @click="action='none'"></button>
+                        <h4 class="text-xl text-gray-900">修改密碼</h4>
+                    </div>
+
+                    <div class="p-5">
+                        <form action="chpwd" method="post" class="p-5 md:px-8">
+                            <div class="block my-6">
+                                <label for="old" class="text-gray-600 mr-5"><span class="mdi mdi-key"></span>
+                                    原密碼</label>
+                                <input id="old" type="password" class="custom-input" name="old_pwd">
+                            </div>
+
+                            <div class="block my-6">
+                                <label for="new" class="text-gray-600 mr-5"><span class="mdi mdi-key"></span>
+                                    新密碼</label>
+                                <input id="new" type="password" class="custom-input" name="new_pwd">
+                            </div>
+
+                            <div class="block my-6">
+                                <label for="again" class="text-gray-600 mr-5"><span class="mdi mdi-key"></span>
+                                    確認密碼</label>
+                                <input id="again" type="password" class="custom-input" name="new_pwd_again">
+                            </div>
+
+                            <button type="reset" @click="action='none'" class="btn btn-secondary ml-4">取消</button>
+                            <button type="submit" class="btn btn-primary ml-4">儲存</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <section class="w-full h-screen overflow-y-scroll custom-scroll-bar md:w-3/4 relative" x-show="tab === 'other'">
+            <div x-data="{action: 'none'}">
+                <div x-show="action==='none'" class="absolute w-full">
+                    <nav class="navbar">
+                        <button onclick="sidebarToggle()"
+                            class="btn-actionbar text-2xl mdi mdi-menu inline-block md:hidden mr-3"></button>
+                    </nav>
+
+                    <div class="header">
+                        <h4 class="text-3xl text-gray-900 font-bold">其他設定</h4>
+                    </div>
+
+                    <div class="p-5 md:p-8 w-full md:w-2/3">
+
+
+
+
+                        <h4 class="text-blue-500 p-3">帳號</h4>
+
+                        <button @click="action='delAccount'" class="list-item flex">
+                            <div class="text-left">
+                                <h4 class="text-gray-900">刪除帳號</h4>
+                                <p class="text-gray-600 text-sm">刪除帳號並清空所有資料</p>
+                            </div>
+                        </button>
+
+                    </div>
+                </div>
+
+                <div x-show="action==='delAccount'" class="absolute w-full text-center md:text-left min-h-screen"
+                    @click.away="action='none'" x-transition:enter="transition ease-out duration-300"
+                    x-transition:enter-start="opacity-0 transform scale-75" x-transition:enter-end="opacity-100"
+                    x-transition:leave="transition ease-out duration-300" x-transition:leave-start="opacity-100"
+                    x-transition:leave-end="opacity-0">
+
+
+                    <div class="p-5 border-b border-gray-200 flex items-center">
+                        <button class="btn-actionbar mr-5 mdi mdi-arrow-left" @click="action='none'"></button>
+                        <h4 class="text-xl text-gray-900">刪除帳號</h4>
+                    </div>
+
+                    <div class="p-5">
+                        <div class="block md:flex items-center p-5">
+                            <span class="mdi mdi-trash-can-outline text-red-500 text-6xl"></span>
+                            <p class="text-gray-600 md:ml-5">
+                                刪除帳號意味著所有資料都會被清除，<br>
+                                而且此動作無法復原，<br>
+                                請輸入密碼以確認身分。
+                            </p>
+                        </div>
+                        <form action="" method="post" class="p-5 md:px-8">
+                            <div class="block my-6">
+                                <label for="password" class="text-gray-600 mr-5"><span class="mdi mdi-key"></span>
+                                    密碼</label>
+                                <input id="password" type="password" class="custom-input">
+                            </div>
+
+                            <button type="reset" @click="action='none'" class=" btn btn-secondary ml-4">取消</button>
+                            <button type="submit" class="btn btn-danger ml-4">刪除帳號</button>
+                        </form>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </section>
+
+        <section class="w-full h-screen overflow-y-scroll custom-scroll-bar md:w-3/4 relative" x-show="tab === 'about'">
+            <nav class="navbar">
+                <button onclick="sidebarToggle()"
+                    class="btn-actionbar text-2xl mdi mdi-menu inline-block md:hidden mr-3"></button>
+
+                <div class="flex items-center">
+                    <h4 class="text-lg text-gray-900"></h4>
+                </div>
+                <div>
+                    <!-- I'm a placeholder -->
+                </div>
+            </nav>
+
+            <div class="header">
+                <h4 class="text-3xl text-gray-900 font-bold">關於</h4>
+            </div>
+
+            <div class="p-5 md:px-8">
+                <p class="text-gray-900">
+                    jizz7122
+                </p>
+            </div>
+
+        </section>
+    </main>
+</body>
+
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>note list</title>
+</head>
+<body>
+<form action="/newnote" method="post">
+	<select name="sheet">
+		<option value="word_sheet">word sheet</option>
+		<option value="voc_list">voc list</option>
+	</select>
+	<input type="submit" value="create new note">
+</form>
+<% if(notes.length>0){ %>
+	<table>
+		<tr>
+			<td>name</td>
+			<td>people</td>
+			<td>createdate</td>
+		</tr>
+	<% for(let i=0;i<notes.length;i++){ %>
+		<tr>
+			<td><a href="/note/<%= notes[i].num %>"><%= notes[i].name %></a></td>
+			<td><%= notes[i].account %></td>
+			<td><%= notes[i].createdate %></td>
+			<td><a href="/modify/<%= notes[i].num %>">modify</a></td>
+		</tr>
+	<% } %>
+	</table>
+<% }else{ %>
+	no notes exist
+<% } %>
+<a href="/chat">chat</a>
+<a href="/logout">logout</a>
+</body>
+</html>

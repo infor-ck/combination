@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>note</title>
+	<meta charset="UTF-8">
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+</head>
+<body>
+<a href="/list">list</a>
+<% if(!note){ %>
+	note not found
+<% }else if(note.type=="word_sheet"){ %>
+	<h3><%= note.name %></h3>
+	<pre style="width: 100%; white-space: pre-wrap; font-family: 'Times New Roman';"><%= note.content %></pre>
+	<%= note.account %><br>
+	<%= note.createdate %><br>
+<% }else{ %>
+	something went wrong<br>
+<% }%>
+<a href="/modify/<%= note.num %>">modify</a>
+<a href="/logout">logout</a>
+</body>
+</html>

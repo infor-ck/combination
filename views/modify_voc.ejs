@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>modify</title>
+	<meta charset="UTF-8">
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+</head>
+<body>
+<a href="/list">list</a>
+<div id="voc">
+	<input type="text" id="word">
+	<button id="voc_submit">submit</button><br>
+	<textarea id="con" style="width: 100%; white-space: pre-wrap; font-family: 'Times New Roman';" rows="15"></textarea>
+</div><br>
+<% if(!note){ %>
+	note not found
+<% }else if(note.type=="voc_list"){ %>
+	<form action="/modify/<%= note.num %>" method="post">
+		name:<input type="text" name="acc" value="<%= note.name %>"><br>
+		content:<textarea name="con" style="width: 100%; white-space: pre-wrap; font-family: 'Times New Roman';" rows="25"><%= note.content %></textarea>
+		<input type="submit" value="submit">
+	</form>
+<% }else{ %>
+	something went wrong<br>
+<% }%>
+<a href="/logout">logout</a>
+</body>
+</html>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript">
+	(function() {
+	  var httpRequest;
+	  $("#voc_submit").on('click', searchVoc);
+
+	  function searchVoc(){
+	  	var word=$('#word').val();
+	  	makeRequest(word);
+	  	$("#voc_submit").disabled=true;
+	  }
+
+	  function makeRequest(word) {
+	    httpRequest = new XMLHttpRequest();
+
+	    if (!httpRequest) {
+	      alert('Giving up :( Cannot create an XMLHTTP instance');
+	      return false;
+	    }
+	    httpRequest.onreadystatechange = alertContents;
+	    httpRequest.open('POST', '/search');
+	    httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	    httpRequest.send('word=' + encodeURIComponent(word));
+	  }
+
+	  function alertContents() {
+	    if (httpRequest.readyState === XMLHttpRequest.DONE) {
+	      if (httpRequest.status === 200) {
+	      	//$('#con').val("");
+	      	var res=JSON.parse(httpRequest.responseText);
+	      	let content=res["content"];
+	      	console.log(res);
+	      	console.log(content);
+	      	let ap_con="";
+	      	console.log(content.inde);
+	      	let inde=content.inde;
+	      	for(let i=0;i<=inde;++i){
+	      	  let ch_name=i+"ch_df";
+	          let def_name=i+"def";
+	          let cnt_name=i+"cnt";
+	          let eg_name=i+"eg_ex";
+	          let ph_name=i+"phrase";
+	          let def="";
+	          let sent="";
+	          let phrase="";
+	          for(let j=0,item;item=content[ch_name][j];j++){
+	    		def+=content[def_name][j];
+	    		def+="\n";
+	    		def+=item;
+	    		def+="\n";
+	    	  }
+	    	  for(let k=0,it;it=content[cnt_name][k];k++){
+	    	  	sent+=content[eg_name][k];
+	    	  	sent+="\n";
+	    	  	sent+=it;
+	    	  	sent+="\n";
+	    	  }
+	    	  for(let l=0,im;im=content[ph_name][l];l++){
+	    	  	phrase+=im;
+	    	  	phrase+="\n";
+	    	  }
+	    	  ap_con+=res.word;
+	    	  ap_con+="\n";
+	    	  ap_con+=content.part_of_speech[i];
+	    	  ap_con+="\n";
+	    	  ap_con+=def;
+	    	  ap_con+="\n";
+	    	  ap_con+="\n example sentence: \n";
+	    	  ap_con+=sent;
+	    	  ap_con+="\n";
+	    	  ap_con+="\n phrase: \n";
+	    	  ap_con+=phrase;
+	    	  ap_con+="\n";
+	    	  ap_con+="------------------------------------------------------------";
+	    	  ap_con+="\n";
+	      	}
+	      	$('#con').append(ap_con);
+	      	$("#voc_submit").disabled=false;
+	      } else {
+	        alert('There was a problem with the request.');
+	      }
+	    }
+	  }
+	})();
+</script>
