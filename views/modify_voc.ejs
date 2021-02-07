@@ -1,47 +1,79 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-	<title>modify</title>
-	<meta charset="UTF-8">
-  	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-  	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modify Voc</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;800&display=swap" rel="stylesheet">
 </head>
-<body>
-<a href="/list">list</a>
-<div id="voc">
-	<input type="text" id="word">
-	<button id="voc_submit">submit</button><br>
-	<textarea id="con" style="width: 100%; white-space: pre-wrap; font-family: 'Times New Roman';" rows="15"></textarea>
-</div><br>
-<% if(!note){ %>
-	note not found
-<% }else if(note.type=="voc_list"){ %>
-	<form action="/modify/<%= note.num %>" method="post">
-		name:<input type="text" name="acc" value="<%= note.name %>"><br>
-		content:<textarea name="con" style="width: 100%; white-space: pre-wrap; font-family: 'Times New Roman';" rows="25"><%= note.content %></textarea>
-		<input type="submit" value="submit">
-	</form>
-<% }else{ %>
-	something went wrong<br>
-<% }%>
-<a href="/logout">logout</a>
+
+<body class="p-5 bg-gray-100 flex justify-center">
+    <div class="w-full lg:w-1/2">
+        <div class="flex justify-between items-center">
+            <div class="text-2xl">
+                <a href="/list" class="material-icons mr-5 btn-actionbar">arrow_back</a>
+            </div>
+            <a href="/chat" class="btn-secondary">chat</a>
+            <a href="/logout" class="btn-secondary">logout</a>
+        </div>
+        <h1 class="text-4xl font-bold mt-5">Modify Voc</h1>
+
+        <div id="voc" class="p-5 w-full bg-white mt-5">
+            <div class="flex">
+                <input type="text" id="word" class="form-input"  style="width: calc( '100%' - '100.8px' );">
+                <button id="voc_submit" class="btn-primary ml-5">submit</button>
+            </div>
+            <textarea name="" id="con" rows="10" class="form-input mt-5"></textarea>
+        </div>
+
+        <% if(!note){ %>
+            <div class="mt-5 bg-white p-5 text-center w-full">
+                <p class="text-gray-600">Note not found</p>
+            </div>
+
+            <% }else if(note.type=="voc_list" ){ %>
+                <form action="/modify/<%= note.num %>" class="mt-5 w-full p-5 bg-white" method="post">
+                    <div>
+                        <label for="name" class="form-label"><span class="material-icons">face</span> name</label>
+                        <input type="text" name="acc" id="name" class="form-input" value="<%= note.name %>">
+                    </div>
+
+                    <div class="mt-5">
+                        <label for="content" class="form-label"><span class="material-icons">description</span>
+                            content</label>
+                        <textarea name="con" id="content" rows="10" class="form-input"><%= note.content %></textarea>
+                    </div>
+
+                    <div class="text-right mt-5">
+                        <input type="submit" value="submit" class="btn-primary">
+                    </div>
+                </form>
+
+                <% }else{ %>
+                    <div class="mt-5 bg-white p-5 text-center w-full">
+                        <p class="text-gray-600">Something went wrong</p>
+                    </div>
+                    <% }%>
+    </div>
 </body>
+
 </html>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script type="text/javascript">
 	(function() {
 	  var httpRequest;
 	  $("#voc_submit").on('click', searchVoc);
-
 	  function searchVoc(){
 	  	var word=$('#word').val();
 	  	makeRequest(word);
 	  	$("#voc_submit").disabled=true;
 	  }
-
 	  function makeRequest(word) {
 	    httpRequest = new XMLHttpRequest();
-
 	    if (!httpRequest) {
 	      alert('Giving up :( Cannot create an XMLHTTP instance');
 	      return false;
@@ -51,7 +83,6 @@
 	    httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 	    httpRequest.send('word=' + encodeURIComponent(word));
 	  }
-
 	  function alertContents() {
 	    if (httpRequest.readyState === XMLHttpRequest.DONE) {
 	      if (httpRequest.status === 200) {

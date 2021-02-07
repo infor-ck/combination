@@ -1,36 +1,65 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-	<title>note list</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>List</title>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;800&display=swap" rel="stylesheet">
 </head>
-<body>
-<form action="/newnote" method="post">
-	<select name="sheet">
-		<option value="word_sheet">word sheet</option>
-		<option value="voc_list">voc list</option>
-	</select>
-	<input type="submit" value="create new note">
-</form>
-<% if(notes.length>0){ %>
-	<table>
-		<tr>
-			<td>name</td>
-			<td>people</td>
-			<td>createdate</td>
-		</tr>
-	<% for(let i=0;i<notes.length;i++){ %>
-		<tr>
-			<td><a href="/note/<%= notes[i].num %>"><%= notes[i].name %></a></td>
-			<td><%= notes[i].account %></td>
-			<td><%= notes[i].createdate %></td>
-			<td><a href="/modify/<%= notes[i].num %>">modify</a></td>
-		</tr>
-	<% } %>
-	</table>
-<% }else{ %>
-	no notes exist
-<% } %>
-<a href="/chat">chat</a>
-<a href="/logout">logout</a>
+
+<body class="bg-gray-100 flex-wrap flex min-h-screen justify-center p-5">
+  <div class="w-full lg:w-1/2">
+    <div class="flex flex-wrap mb-5 p-5 bg-white sticky top-0">
+      <form action="/newnote" class="justify-center w-full flex" method="post">
+        <select name="sheet" id="" class="ml-5 bg-white">
+          <option value="word_sheet">word sheet</option>
+          <option value="voc_list">voc list</option>
+        </select>
+        <input type="submit" value="create new note" class="btn-primary ml-5">
+      </form>
+    </div>
+
+    <% if(notes.length>0){ %>
+      <table class="custom-table w-full table-fixed">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>people</th>
+            <th>createdate</th>
+            <th class="w-1/6"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for(let i=0;i<notes.length;i++){ %>
+
+            <tr>
+              <td><a href="/note/<%= notes[i].num %>">
+                  <%= notes[i].name %>
+                </a></td>
+              <td>
+                <%= notes[i].account %>
+              </td>
+              <td>
+                <%= notes[i].createdate %>
+              </td>
+              <td><a href="/modify/<%= notes[i].num %>"><span class="material-icons">edit</span></a></td>
+            </tr>
+
+            <% } %>
+        </tbody>
+      </table>
+      <% }else{ %>
+        <div class="text-center text-gray-600 text-xl">No notes exist</div>
+        <% } %>
+
+          <div class="mt-5 text-center"><a href="/chat" class="btn-secondary">chat</a></div>
+          <div class="mt-5 text-center"><a href="/logout" class="btn-secondary">logout</a></div>
+  </div>
+
 </body>
+
 </html>

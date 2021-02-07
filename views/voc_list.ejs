@@ -1,33 +1,52 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-	<title>voc list</title>
-	<meta charset="UTF-8">
-  	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-  	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voc list</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;800&display=swap" rel="stylesheet">
 </head>
-<body>
-<a href="/list">list</a>
-<!--
-<form action="/sort/<%= note.num %>" method="post">
-	<select name="sort_key">
-		<option value="time">sort by time</option>
-		<option value="capital">sort by capital</option>
-	</select>
-	<input type="submit" value="submit">
-</form>
--->
-	<% if(!note){ %>
-		note not found<br>
-	<% }else if(note.type=="voc_list"){ %>
-		<h3><%= note.name %></h3>
-		<pre style="width: 100%; white-space: pre-wrap; font-family: 'Times New Roman';"><%= note.content %></pre>
-		<%= note.account %><br>
-		<%= note.createdate %><br>
-	<% }else{ %>
-		something went wrong<br>
-	<% }%>
-<a href="/modify/<%= note.num %>">modify</a>
-<a href="/logout">logout</a>
+
+<body class="p-5 bg-gray-100 flex justify-center">
+    <div class="w-full lg:w-1/2">
+        <div class="flex justify-between items-center">
+            <div class="text-2xl">
+                <a href="/list" class="material-icons mr-5 btn-actionbar">arrow_back</a>
+            </div>
+            <a href="/chat" class="btn-secondary">chat</a>
+            <a href="/logout" class="btn-secondary">logout</a>
+        </div>
+        <h1 class="text-4xl font-bold mt-5">Voc List</h1>
+
+        <div class="mt-5 w-full p-5 bg-white">
+            <% if(!note){ %>
+                <div class="text-center text-gray-600 text-xl">No notes exist</div>
+                <% }else if(note.type=="voc_list" ){ %>
+                    <div class="flex justify-between">
+                        <div class="flex items-center text-xl text-gray-600">
+                            <span class="material-icons mr-3 md:ml-3">face</span>
+                            <%= note.name %>
+                        </div>
+                        <a href="/modify/<%= note.num %>" class="btn-primary"><span class="material-icons text-xs">create</span>
+                            modify</a>
+                    </div>
+
+                    <pre class="w-full leading-normal my-5 md:mx-3"
+                        style="font-family: 'Manrope', '微軟正黑體', sans-serif;"><%= note.content %></pre>
+
+                    <div class="flex items-center text-xl text-gray-600 md:mx-3"><span
+                            class="material-icons mr-3">schedule</span>
+                        <%= note.createdate %>
+                    </div>
+                    <% }else{ %>
+                        <div class="text-center text-gray-600 text-xl">Something went wrong</div>
+                        <% }%>
+        </div>
+    </div>
 </body>
+
 </html>
